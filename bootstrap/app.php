@@ -11,6 +11,9 @@
 |
 */
 
+const API_VERSION = 'v1';
+const API_NAME = API_VERSION . '.';
+
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );

@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\API\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::prefix(API_VERSION)->group(function () {
+        Route::get('/me', function (Request $request) {
+            return $request->user();
+        })
+            ->name(API_NAME . 'me');
+
+        Route::post('/tokens/create', [AuthController::class, 'token'])
+            ->name(API_NAME . 'token');
+    })
+    ->middleware('auth:sanctum')
+    ->name(API_NAME);
